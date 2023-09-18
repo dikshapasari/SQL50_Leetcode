@@ -1,0 +1,13 @@
+#If the id is even, we'll subtract one from it to switch the seat.
+#If it's odd, we need to check if it's the last id. If so, the student stays in the same seat. Otherwise, we'll add one to the id.
+#We'll use the SELECT COUNT(*) FROM Seat subquery to check if the current id is the last one.
+
+SELECT CASE
+WHEN s.id % 2 <> 0 AND s.id = (SELECT COUNT(*) FROM Seat) THEN s.id
+WHEN s.id % 2 = 0 THEN s.id - 1
+ELSE
+s.id + 1
+END AS id,
+student
+FROM Seat AS s
+ORDER BY id
