@@ -1,0 +1,7 @@
+select t.id, sum(t.num) as num from
+(SELECT requester_id id, COUNT(requester_id) num FROM RequestAccepted GROUP BY requester_id
+UNION ALL
+SELECT accepter_id id, COUNT(accepter_id) num  FROM RequestAccepted GROUP BY accepter_id) as t
+group by id
+order by num desc
+limit 1
